@@ -158,10 +158,11 @@ class MinhaUFOP:
         if response.ok and response.content:
             with open(saida, 'wb') as file:
                 file.write(response.content)
+
+            return saida
         elif not response.content:
             raise Exception("Servidor não retornou nada. "
                             "Verifique o CPF do pedido.")
         elif not response.ok:
             raise Exception("Servidor retornou o código: " +
                             str(response.status_code))
-
