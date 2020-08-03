@@ -43,3 +43,14 @@ api.multi_perfil_login('123.456.789-10', 'sua_senha_em_MD5', perfil=0)
 saldo = api.saldo_do_ru()
 print(saldo['saldo'])
 ```
+
+#### Salvar foto de um CPF
+```python
+# Salva a foto do CPF como teste.png
+api.foto('123.456.789-10', 'teste.png')
+
+# Salva a foto e etorna o caminho onde foi salva
+foto = api.foto('123.456.789-10')
+print(foto)
+# 123.456.789-10.png
+```
