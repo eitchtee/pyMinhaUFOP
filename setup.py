@@ -1,12 +1,12 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="pyminhaufop",
     packages=['pyminhaufop'],
-    version="0.0.1",
+    version="0.0.2",
     license='MIT',
     author="Herculino Trotta Neto",
     author_email="herculinotrotta@gmail.com",
@@ -15,7 +15,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     keywords=['UFOP', 'api'],
     url="https://github.com/eitchtee/pyMinhaUFOP",
-    download_url='https://github.com/user/reponame/archive/v_01.tar.gz',
     install_requires=[
           'requests',
       ],
