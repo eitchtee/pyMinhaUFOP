@@ -134,3 +134,34 @@ class MinhaUFOP:
         response = requests.request("GET", url, headers=headers)
 
         return response.json()
+
+    def foto(self, cpf: str, caminho_de_saida = None):
+        """Salva a foto do CPF informado se disponível.
+
+        Parameters:
+            cpf (str):CPF que você deseja requisitar a foto (ex.:
+            123.456.789-10)
+            caminho_de_saida (str):Caminho para salvar a foto.
+             Padrão é {cpf}.png
+        """
+
+        url = "https://zeppelin10.ufop.br/api/v1/ru/foto/" + str(cpf)
+
+        headers = {
+            'Authorization': f'Bearer {self.token}',
+        }
+
+        response = requests.request("GET", url, headers=headers)
+
+        saida = cpf + ".png" if not caminho_de_saida else caminho_de_saida
+
+        if response.ok and response.content:
+            with open(saida, 'wb') as file:
+                file.write(response.content)
+        elif not response.content:
+            raise Exception("Servidor não retornou nada. "
+                            "Verifique o CPF do pedido.")
+        elif not response.ok:
+            raise Exception("Servidor retornou o código: " +
+                            str(response.status_code))
+
