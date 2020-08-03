@@ -4,9 +4,14 @@ Wrapper não-oficial para a API mobile da MinhaUFOP
 ## O que é?
 Este wrapper expõe a API Mobile do Aplicativo [Minha UFOP](https://play.google.com/store/apps/details?id=br.ufop.app).
 
+## Instalação
+`pip install pyminhaufop`
+
 ## Uso
 #### Login simples
 ```python
+from pyminhaufop import MinhaUFOP
+
 # inicializa a classe
 api = MinhaUFOP()
 
@@ -20,6 +25,8 @@ print(saldo['saldo'])
 
 #### Login com senha hasheada
 ```python
+from pyminhaufop import MinhaUFOP
+
 # inicializa a classe
 api = MinhaUFOP()
 
@@ -33,6 +40,8 @@ print(saldo['saldo'])
 
 #### Login com mais de um perfil
 ```python
+from pyminhaufop import MinhaUFOP
+
 # inicializa a classe
 api = MinhaUFOP()
 
