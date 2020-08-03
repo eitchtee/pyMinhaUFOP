@@ -49,7 +49,9 @@ class MinhaUFOP:
                 else:
                     raise Exception("Erro desconhecido.")
         else:
-            raise Exception("Login mal sucedido. Verifique seu usuário e senha.")
+            raise Exception("Servidor retornou o código: " +
+                            str(response.status_code) +
+                            ". Verifique suas informações de login.")
 
     def multi_perfil_login(self, usuario: str,
                            senha: str,
@@ -86,7 +88,20 @@ class MinhaUFOP:
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
-        perfis = response.json()['perfil']
+
+        if response.ok:
+            perfis = response.json()['perfil']
+        else:
+            raise Exception("Servidor retornou o código: " +
+                            str(response.status_code) +
+                            ". Verifique suas informações de login.")
+
+        if perfil >= len(perfis):
+            raise Exception(f"Número do perfil especificado [{perfil}] "
+                            f"maior do que o número de perfis disponíveis.")
+        if perfil < 0:
+            raise Exception(f"Número do perfil especificado [{perfil}] "
+                            f"é inválido.")
 
         url = "https://zeppelin10.ufop.br/minhaUfop/v1/auth/login"
 
@@ -104,7 +119,7 @@ class MinhaUFOP:
         if response.ok:
             self.token = response.json()['token']
         else:
-            raise Exception("Login mal sucedido. Verifique seu usuário e senha.")
+            raise Exception("Servidor retornou: " + str(response.status_code))
 
     def saldo_do_ru(self):
         """Retorna um dicionário com o CPF do usuário, o saldo do seu Cartão do
