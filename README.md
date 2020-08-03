@@ -5,7 +5,11 @@ Wrapper não-oficial para a API mobile da MinhaUFOP
 Este wrapper expõe a API Mobile do Aplicativo [Minha UFOP](https://play.google.com/store/apps/details?id=br.ufop.app).
 
 ## Instalação
-`pip install pyminhaufop`
+Clone este repositório ou use o `pip`:
+
+`pip install pyminhaufop --upgrade`
+
+> Sempre mantenha sua instalação na última versão para evitar problemas de compatibilidade.
 
 ## Uso
 #### Login simples
