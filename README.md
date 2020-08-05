@@ -1,5 +1,32 @@
-# pyMinhaUFOP
-Wrapper não-oficial para a API mobile da MinhaUFOP
+<div align="center">
+	<a href="https://pypi.org/project/pyminhaufop/" target="_blank">
+    	<img alt="Exemplo pyminhaufop" title="pyminhaufop" src="./assets/header.png" />
+    </a>
+    </div>
+
+<h1 align="center">pyMinhaUFOP</h1>
+<p align="center">Wrapper não-oficial para a API mobile da MinhaUFOP</p>
+
+<div align="center">
+  <img alt="PyPI - License" src="https://img.shields.io/pypi/l/pyminhaufop?label=LICEN%C3%87A&style=for-the-badge">
+  <a href="https://pypi.org/project/pyminhaufop/" target="_blank"><img alt="PyPI" src="https://img.shields.io/pypi/v/pyminhaufop?style=for-the-badge"></a>
+  <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/pyminhaufop?style=for-the-badge">
+</div>
+
+<br/>
+
+<h5 align="center"> 
+🚧 Em desenvolvimento 🚧
+</h5>
+
+---
+
+<p align="center">
+    <a href="#o-que-é">❓ O que é?</a> •
+    <a href="#instalação">💻 Instalação</a> • 
+    <a href="#uso">✍️ Uso e Exemplos</a> •
+    <a href="#roadmap">🗺️ Roadmap</a>
+</p>
 
 ## O que é?
 Este wrapper expõe a API Mobile do Aplicativo [Minha UFOP](https://play.google.com/store/apps/details?id=br.ufop.app).
@@ -7,11 +34,14 @@ Este wrapper expõe a API Mobile do Aplicativo [Minha UFOP](https://play.google.
 ## Instalação
 Clone este repositório ou use o `pip`:
 
-`pip install pyminhaufop --upgrade`
+```
+$ pip install pyminhaufop --upgrade
+```
 
-> Sempre mantenha sua instalação na última versão para evitar problemas de compatibilidade.
+> Sempre mantenha a biblioteca atualizada.
 
-## Uso
+## Uso e Exemplos
+
 #### Login simples
 ```python
 from pyminhaufop import MinhaUFOP
@@ -67,3 +97,15 @@ foto = api.foto('123.456.789-10')
 print(foto)
 # 123.456.789-10.png
 ```
+
+## Roadmap
+
+### Funções nativas
+
+- [x] Login
+- [x] Consulta de Saldo do RU
+- [x] Consulta de foto pelo CPF
+- [ ] Consulta ao Cardápio do RU
+- [ ] Emissão de boletos de recarga
+- [ ] Consulta ao Atestado de Matrícula
+- [ ] Consulta ao Extrato do RU
