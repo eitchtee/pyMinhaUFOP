@@ -51,7 +51,8 @@ $ pip install pyminhaufop --upgrade
 
 ## Uso e Exemplos
 
-#### Login simples
+### Login
+#### simples
 ```python
 from pyminhaufop import MinhaUFOP
 
@@ -66,7 +67,7 @@ saldo = api.saldo_do_ru()
 print(saldo['saldo'])
 ```
 
-#### Login com senha hasheada
+#### com senha hasheada
 ```python
 from pyminhaufop import MinhaUFOP
 
@@ -81,22 +82,34 @@ saldo = api.saldo_do_ru()
 print(saldo['saldo'])
 ```
 
-#### Login com mais de um perfil
+#### utilizando conta com mais de um perfil
 ```python
 from pyminhaufop import MinhaUFOP
 
 # inicializa a classe
 api = MinhaUFOP()
 
-# Logue e selecione um dos perfis. Mais recente primeiro.
-api.multi_perfil_login('123.456.789-10', 'sua_senha_em_MD5', perfil=0)
+# Você pode passar os dados de forma direta
+# identificacao = matrícula com pontos
+# perfil = 
+#        - "G" - Alunos de Graduação
+api.login('123.456.789-10', 'sua_senha', identificacao="20.1.0000", perfil="G")
 
-# acesse as funções da API
-saldo = api.saldo_do_ru()
-print(saldo['saldo'])
+# ou 
+
+# Indique o index do perfil. O mais recente é o index 0.
+api.login('123.456.789-10', 'sua_senha', perfil_num=0)
 ```
 
-#### Salvar foto de um CPF
+### Saldo do RU
+```python
+saldo = api.saldo_do_ru()
+
+print(saldo['saldo'])
+# >> {'cpf': '123.456-789-10', 'saldo': 1.0, 'bloqueado': False}
+```
+
+### Salvar foto de um CPF
 ```python
 # Salva a foto do CPF como teste.png
 api.foto('123.456.789-10', 'teste.png')
