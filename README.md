@@ -24,7 +24,7 @@
 <p align="center">
     <a href="#o-que-é">❓ O que é?</a> •
     <a href="#instalação">💻 Instalação</a> • 
-    <a href="#uso">✍️ Uso e Exemplos</a> •
+    <a href="#uso-e-exemplos">✍️ Uso e Exemplos</a> •
     <a href="#roadmap">🗺️ Roadmap</a>
 </p>
 
