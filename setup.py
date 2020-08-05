@@ -6,7 +6,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 setuptools.setup(
     name="pyminhaufop",
     packages=['pyminhaufop'],
-    version="0.0.2",
+    version="0.0.3",
     license='MIT',
     author="Herculino Trotta Neto",
     author_email="herculinotrotta@gmail.com",
