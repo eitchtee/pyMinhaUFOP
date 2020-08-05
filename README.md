@@ -32,13 +32,22 @@
 Este wrapper expõe a API Mobile do Aplicativo [Minha UFOP](https://play.google.com/store/apps/details?id=br.ufop.app).
 
 ## Instalação
-Clone este repositório ou use o `pip`:
+
+
+#### Automático (recomendado)
 
 ```
 $ pip install pyminhaufop --upgrade
 ```
 
-> Sempre mantenha a biblioteca atualizada.
+#### Manual
+
+1. Clone este repositório
+2. ```$ python setup.py install```
+
+<br/>
+
+> Lembre-se de manter a biblioteca sempre atuaizada.
 
 ## Uso e Exemplos
 
@@ -102,9 +111,9 @@ print(foto)
 
 ### Funções nativas
 
-- [x] Login
-- [x] Consulta de Saldo do RU
-- [x] Consulta de foto pelo CPF
+- [x] Login `v0.0.1`
+- [x] Consulta de Saldo do RU `v0.0.1`
+- [x] Consulta de foto pelo CPF `v0.0.2`
 - [ ] Consulta ao Cardápio do RU
 - [ ] Emissão de boletos de recarga
 - [ ] Consulta ao Atestado de Matrícula
