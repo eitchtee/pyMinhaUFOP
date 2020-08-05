@@ -63,7 +63,11 @@ class MinhaUFOP:
 
         response = requests.request("GET", url, headers=headers)
 
-        return response.json()
+        if response.ok:
+            return response.json()
+        else:
+            raise Exception("Servidor retornou o código: " +
+                            str(response.status_code))
 
     def foto(self, cpf: str, caminho_de_saida = None, **kwargs):
         """Salva a foto do CPF informado se disponível.
