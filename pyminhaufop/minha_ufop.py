@@ -6,6 +6,14 @@ class MinhaUFOP:
     def __init__(self):
         self.token = None
 
+        self._login_endpoint = "https://zeppelin10.ufop.br/minhaUfop/v1/auth/login"
+        self._saldo_do_ru_endpoint = "https://zeppelin10.ufop.br/api/v1/ru/saldo"
+        self._foto_endpoint = "https://zeppelin10.ufop.br/api/v1/ru/foto/"
+
+        self._chave = "e8c8f5ef-4248-4e81-9cb9-4ab910080485"
+
+        self._headers = {'Content-Type': 'application/json'}
+
     def login(self,
               usuario: str,
               senha: str,
@@ -24,16 +32,15 @@ class MinhaUFOP:
         if encode:
             senha = hashlib.md5(senha.encode()).hexdigest()
 
-        url = "https://zeppelin10.ufop.br/minhaUfop/v1/auth/login"
+        url = self._login_endpoint
 
         payload = f"{{\"identificador\":\"{usuario}\"," \
                   f"\"senha\":\"{senha}\"," \
                   "\"identificacao\":\"\",\"perfil\":\"\",\"crypt\":true," \
                   "\"chave\":\"e8c8f5ef-4248-4e81-9cb9-4ab910080485\"}"
 
-        headers = {
-            'Content-Type': 'application/json',
-        }
+        print(payload)
+        headers = self._headers
 
         response = requests.request("POST", url, headers=headers, data=payload)
         res_json = response.json()
@@ -76,16 +83,14 @@ class MinhaUFOP:
         if encode:
             senha = hashlib.md5(senha.encode()).hexdigest()
 
-        url = "https://zeppelin10.ufop.br/minhaUfop/v1/auth/login"
+        url = self._login_endpoint
 
         payload = f"{{\"identificador\":\"{usuario}\"," \
                   f"\"senha\":\"{senha}\"," \
                   "\"identificacao\":\"\",\"perfil\":\"\",\"crypt\":true," \
                   "\"chave\":\"e8c8f5ef-4248-4e81-9cb9-4ab910080485\"}"
 
-        headers = {
-            'Content-Type': 'application/json',
-        }
+        headers = self._headers
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
@@ -103,16 +108,10 @@ class MinhaUFOP:
             raise Exception(f"Número do perfil especificado [{perfil}] "
                             f"é inválido.")
 
-        url = "https://zeppelin10.ufop.br/minhaUfop/v1/auth/login"
-
         payload = f"{{\"identificador\":\"{usuario}\"," \
                   f"\"senha\":\"{senha}\"," \
                   f"\"identificacao\":\"{perfis[perfil]['identificacao']}\",\"perfil\":\"{perfis[perfil]['perfil']}\",\"crypt\":true," \
                   "\"chave\":\"e8c8f5ef-4248-4e81-9cb9-4ab910080485\"}"
-
-        headers = {
-            'Content-Type': 'application/json',
-        }
 
         response = requests.request("POST", url, headers=headers, data=payload)
 
@@ -125,7 +124,7 @@ class MinhaUFOP:
         """Retorna um dicionário com o CPF do usuário, o saldo do seu Cartão do
         RU e se o cartão está bloqueado"""
 
-        url = "https://zeppelin10.ufop.br/api/v1/ru/saldo"
+        url = self._saldo_do_ru_endpoint
 
         headers = {
             'Authorization': f'Bearer {self.token}',
@@ -145,7 +144,7 @@ class MinhaUFOP:
              Padrão é {cpf}.png
         """
 
-        url = "https://zeppelin10.ufop.br/api/v1/ru/foto/" + str(cpf)
+        url = self._foto_endpoint + str(cpf)
 
         headers = {
             'Authorization': f'Bearer {self.token}',
