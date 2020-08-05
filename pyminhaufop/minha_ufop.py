@@ -71,7 +71,7 @@ class MinhaUFOP:
 
     def cardapio_do_ru(self, **kwargs) -> dict:
         """Retorna um dicionário com o cardapio do RU para a semana ou
-        de um dia da semana especifico com o kwarg dia_da_semana"""
+        de um dia da semana específico com o kwarg dia_da_semana"""
 
         dia = kwargs.get('dia_da_semana')
 

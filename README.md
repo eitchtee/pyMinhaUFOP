@@ -116,7 +116,7 @@ print(saldo)
 # Acessar cardápio da semana
 cardapio = api.cardapio_do_ru()
 
-# Acessar cardápio de um dia especifico na semana
+# Acessar cardápio de um dia específico na semana
 # dia_da_semana: int =
 #                      - 0 = Segunda
 #                      - ...
