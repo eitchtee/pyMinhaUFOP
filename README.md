@@ -101,12 +101,30 @@ api.login('123.456.789-10', 'sua_senha', identificacao="20.1.0000", perfil="G")
 api.login('123.456.789-10', 'sua_senha', perfil_num=0)
 ```
 
-### Saldo do RU
+### RU
+#### Saldo
 ```python
 saldo = api.saldo_do_ru()
 
-print(saldo['saldo'])
+print(saldo)
 # >> {'cpf': '123.456-789-10', 'saldo': 1.0, 'bloqueado': False}
+```
+
+#### Cardápio
+```python
+
+# Acessar cardápio da semana
+cardapio = api.cardapio_do_ru()
+
+# Acessar cardápio de um dia especifico na semana
+# dia_da_semana: int =
+#                      - 0 = Segunda
+#                      - ...
+#                      - 4 = Sexta
+cardapio = api.cardapio_do_ru(dia_da_semana=0)
+
+print(cardapio)
+# >> [{'almoco': {'opma': [ ... }]
 ```
 
 ### Salvar foto de um CPF
@@ -127,7 +145,7 @@ print(foto)
 - [x] Login `v0.0.1`
 - [x] Consulta de Saldo do RU `v0.0.1`
 - [x] Consulta de foto pelo CPF `v0.0.2`
-- [ ] Consulta ao Cardápio do RU
+- [x] Consulta ao Cardápio do RU `v0.1.0`
 - [ ] Emissão de boletos de recarga
 - [ ] Consulta ao Atestado de Matrícula
 - [ ] Consulta ao Extrato do RU
