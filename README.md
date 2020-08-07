@@ -157,6 +157,9 @@ print(foto)
 - [x] Consulta de Saldo do RU `v0.0.1`
 - [x] Consulta de foto pelo CPF `v0.0.2`
 - [x] Consulta ao Cardápio do RU `v0.1.0`
-- [ ] Emissão de boletos de recarga
+- [ ] Boletos
+    - [ ] Emissão
+    - [ ] Download
+    - [ ] Listagem
 - [ ] Consulta ao Atestado de Matrícula
 - [x] Consulta ao Extrato do RU `v0.2.0`
