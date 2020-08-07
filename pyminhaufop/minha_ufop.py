@@ -90,12 +90,28 @@ class MinhaUFOP:
                             str(response.status_code))
 
     def extrato_ru(self, inicio, fim, **kwargs):
-        """Retorna um dicionário com o cardapio do RU para a semana ou
-                de um dia da semana específico com o kwarg dia_da_semana"""
+        """Retorna um dicionário com o extrato da carteira do RU."""
 
         url = kwargs.get('url',
                          f"https://zeppelin10.ufop.br/api/v1/ru/extrato?"
                          f"inicio={inicio}&fim={fim}")
+
+        headers = kwargs.get('headers',
+                             {'Authorization': f'Bearer {self.token}'})
+
+        response = requests.request("GET", url, headers=headers)
+
+        if response.ok:
+            return response.json()
+        else:
+            raise Exception("Servidor retornou o código: " +
+                            str(response.status_code))
+
+    def atestado(self, **kwargs):
+        """Retorna um dicionário com as matérias do usuário em blocos de 50 minutos."""
+
+        url = kwargs.get('url',
+                         f"https://zeppelin10.ufop.br/api/v1/graduacao/alunos/atestado")
 
         headers = kwargs.get('headers',
                              {'Authorization': f'Bearer {self.token}'})
