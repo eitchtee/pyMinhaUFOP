@@ -130,12 +130,16 @@ print(cardapio)
 #### Extrato
 ```python
 
-# Acessar cardápio da semana
 extrato = api.extrato_ru(inicio='2020-01-01', fim='2020-08-01')
 
 print(extrato)
-# >> [{"data":"2020-03-11 12:42:50","dataGravacao":"2020-03-11 12:42:52","valor":3.00,"codCategoriaBolsa":null,"tipo":"D","pagante":true},
-# {"data":"2020-03-11 12:05:03","dataGravacao":"2020-03-11 12:05:03","valor":10.00,"codCategoriaBolsa":null,"tipo":"C","pagante":true}]
+# >> [{
+#   "data":"2020-03-11 12:42:50",
+#   "dataGravacao":"2020-03-11 12:42:52",
+#   "valor":3.00,
+#   "codCategoriaBolsa":null,
+#   "tipo":"D",
+#   "pagante":true}]
 ```
 
 ### Salvar foto de um CPF
@@ -147,6 +151,24 @@ api.foto('123.456.789-10', 'teste.png')
 foto = api.foto('123.456.789-10')
 print(foto)
 # 123.456.789-10.png
+```
+
+### Atestado de Matrícula
+```python
+
+atestado = api.atestado()
+
+print(atestado)
+# >> [{'ano': '2020',
+#      'semestre': 1,
+#      'dia': 2,
+#      'horaInicio': '19:00:00',
+#      'codDisciplina': 'XXX000',
+#      'codTurma': '69',
+#      'tipoAula': 'T',
+#      'descricao': 'Matéria',
+#      'credito': 4,
+#      'chSemestre': 60}]
 ```
 
 ## Roadmap
@@ -161,5 +183,5 @@ print(foto)
     - [ ] Emissão
     - [ ] Download
     - [ ] Listagem
-- [ ] Consulta ao Atestado de Matrícula
+- [x] Consulta ao Atestado de Matrícula `v0.2.0`
 - [x] Consulta ao Extrato do RU `v0.2.0`

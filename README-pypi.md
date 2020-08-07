@@ -104,6 +104,21 @@ print(cardapio)
 # >> [{'almoco': {'opma': [ ... }]
 ```
 
+#### Extrato
+```python
+
+extrato = api.extrato_ru(inicio='2020-01-01', fim='2020-08-01')
+
+print(extrato)
+# >> [{
+#   "data":"2020-03-11 12:42:50",
+#   "dataGravacao":"2020-03-11 12:42:52",
+#   "valor":3.00,
+#   "codCategoriaBolsa":null,
+#   "tipo":"D",
+#   "pagante":true}]
+```
+
 ### Salvar foto de um CPF
 ```python
 # Salva a foto do CPF como teste.png
@@ -113,4 +128,22 @@ api.foto('123.456.789-10', 'teste.png')
 foto = api.foto('123.456.789-10')
 print(foto)
 # 123.456.789-10.png
+```
+
+### Atestado de Matrícula
+```python
+
+atestado = api.atestado()
+
+print(atestado)
+# >> [{'ano': '2020',
+#      'semestre': 1,
+#      'dia': 2,
+#      'horaInicio': '19:00:00',
+#      'codDisciplina': 'XXX000',
+#      'codTurma': '69',
+#      'tipoAula': 'T',
+#      'descricao': 'Matéria',
+#      'credito': 4,
+#      'chSemestre': 60}]
 ```
