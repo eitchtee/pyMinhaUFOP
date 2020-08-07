@@ -4,7 +4,7 @@
     </a>
     </div>
 
-<h1 align="center">pyMinhaUFOP</h1>
+<h3 align="center">pyMinhaUFOP</h3>
 <p align="center">Wrapper não-oficial para a API mobile da MinhaUFOP</p>
 
 <div align="center">
