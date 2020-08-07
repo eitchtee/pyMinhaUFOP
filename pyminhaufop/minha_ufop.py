@@ -89,6 +89,25 @@ class MinhaUFOP:
             raise Exception("Servidor retornou o código: " +
                             str(response.status_code))
 
+    def extrato_ru(self, inicio, fim, **kwargs):
+        """Retorna um dicionário com o cardapio do RU para a semana ou
+                de um dia da semana específico com o kwarg dia_da_semana"""
+
+        url = kwargs.get('url',
+                         f"https://zeppelin10.ufop.br/api/v1/ru/extrato?"
+                         f"inicio={inicio}&fim={fim}")
+
+        headers = kwargs.get('headers',
+                             {'Authorization': f'Bearer {self.token}'})
+
+        response = requests.request("GET", url, headers=headers)
+
+        if response.ok:
+            return response.json()
+        else:
+            raise Exception("Servidor retornou o código: " +
+                            str(response.status_code))
+
     def foto(self, cpf: str, caminho_de_saida = None, **kwargs):
         """Salva a foto do CPF informado se disponível.
 

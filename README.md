@@ -127,6 +127,17 @@ print(cardapio)
 # >> [{'almoco': {'opma': [ ... }]
 ```
 
+#### Extrato
+```python
+
+# Acessar cardápio da semana
+extrato = api.extrato_ru(inicio='2020-01-01', fim='2020-08-01')
+
+print(extrato)
+# >> [{"data":"2020-03-11 12:42:50","dataGravacao":"2020-03-11 12:42:52","valor":3.00,"codCategoriaBolsa":null,"tipo":"D","pagante":true},
+# {"data":"2020-03-11 12:05:03","dataGravacao":"2020-03-11 12:05:03","valor":10.00,"codCategoriaBolsa":null,"tipo":"C","pagante":true}]
+```
+
 ### Salvar foto de um CPF
 ```python
 # Salva a foto do CPF como teste.png
@@ -148,4 +159,4 @@ print(foto)
 - [x] Consulta ao Cardápio do RU `v0.1.0`
 - [ ] Emissão de boletos de recarga
 - [ ] Consulta ao Atestado de Matrícula
-- [ ] Consulta ao Extrato do RU
+- [x] Consulta ao Extrato do RU `v0.2.0`
