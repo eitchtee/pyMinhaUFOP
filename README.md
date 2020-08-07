@@ -1,6 +1,6 @@
 <div align="center">
 	<a href="https://pypi.org/project/pyminhaufop/" target="_blank">
-    	<img alt="Exemplo pyminhaufop" title="pyminhaufop" src="./assets/header.png" />
+    	<img alt="Exemplo pyminhaufop" title="pyminhaufop" src="./.github/header.png" />
     </a>
     </div>
 
