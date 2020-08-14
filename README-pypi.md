@@ -28,8 +28,8 @@ $ pip install pyminhaufop --upgrade
 
 ## Uso e Exemplos
 
-### Login
-#### simples
+### Login e Inicialização
+#### Simples
 ```python
 from pyminhaufop import MinhaUFOP
 
@@ -44,7 +44,7 @@ saldo = api.saldo_do_ru()
 print(saldo['saldo'])
 ```
 
-#### com senha hasheada
+#### Com senha hasheada
 ```python
 from pyminhaufop import MinhaUFOP
 
@@ -59,21 +59,18 @@ saldo = api.saldo_do_ru()
 print(saldo['saldo'])
 ```
 
-#### utilizando conta com mais de um perfil
+#### Utilizando conta com mais de um perfil
 ```python
-from pyminhaufop import MinhaUFOP
-
-# inicializa a classe
-api = MinhaUFOP()
-
 # Você pode passar os dados de forma direta
 # identificacao = matrícula com pontos
 # perfil = 
 #        - "G" - Alunos de Graduação
 api.login('123.456.789-10', 'sua_senha', identificacao="20.1.0000", perfil="G")
+```
 
-# ou 
+<p align="center">ou</p>
 
+```python
 # Indique o index do perfil. O mais recente é o index 0.
 api.login('123.456.789-10', 'sua_senha', perfil_num=0)
 ```
