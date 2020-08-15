@@ -11,16 +11,18 @@ class MinhaUFOP:
               senha: str,
               encode: bool = True,
               **kwargs) -> dict:
-        """
-            Gera o token necessáio para acessar a API simulando um login.
+        """Gera o token necessáio para acessar a API simulando um login.
 
-            Parameters:
-                usuario (str):Seu cpf com pontos e hífens (ex.: 123.456.789-10)
-                senha (str):Sua senha da MinhaUFOP, também pode ser um hash MD5
-                da senha
-                encode (bool):True se você estiver usando a senha pura, False se
-                 você estiver utilizando um hash MD5 da senha
-                **kwargs
+        Args:
+            usuario (str):Seu cpf com pontos e hífens (ex.: 123.456.789-10)
+            senha (str):Sua senha da MinhaUFOP, também pode ser um hash MD5
+            da senha
+            encode (bool):True se você estiver usando a senha pura, False se
+             você estiver utilizando um hash MD5 da senha
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
         """
 
         if encode:
@@ -55,8 +57,13 @@ class MinhaUFOP:
                             ". Verifique suas informações de login.")
 
     def saldo_do_ru(self, **kwargs) -> dict:
-        """Retorna um dicionário com o CPF do usuário, o saldo do seu Cartão do
-        RU e se o cartão está bloqueado"""
+        """Retorna o CPF do usuário, o saldo do Cartão do RU e se o cartão está
+           bloqueado
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+        """
 
         url = kwargs.get('url', "https://zeppelin10.ufop.br/api/v1/ru/saldo")
         headers = kwargs.get('headers', {'Authorization': f'Bearer {self.token}'})
@@ -70,8 +77,14 @@ class MinhaUFOP:
                             str(response.status_code))
 
     def cardapio_do_ru(self, **kwargs) -> dict:
-        """Retorna um dicionário com o cardapio do RU para a semana ou
-        de um dia da semana específico com o kwarg dia_da_semana"""
+        """Retorna o cardapio do RU para a semana
+
+        Kwargs:
+            dia_da_semana (int): Retorna o cardápio para o dia da semana
+            informado. 0 a 4, onde 0 é segunda e 4 é sexta.
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+        """
 
         dia = kwargs.get('dia_da_semana')
 
@@ -89,8 +102,17 @@ class MinhaUFOP:
             raise Exception("Servidor retornou o código: " +
                             str(response.status_code))
 
-    def extrato_ru(self, inicio, fim, **kwargs):
-        """Retorna um dicionário com o extrato da carteira do RU."""
+    def extrato_ru(self, inicio, fim, **kwargs) -> dict:
+        """Retorna o extrato da carteira do RU.
+
+        Args:
+            inicio (str): Data no formato YYYY-MM-DD HH:MM:SS
+            fim (str): Data no formato YYYY-MM-DD HH:MM:SS
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+        """
 
         url = kwargs.get('url',
                          f"https://zeppelin10.ufop.br/api/v1/ru/extrato?"
@@ -107,8 +129,13 @@ class MinhaUFOP:
             raise Exception("Servidor retornou o código: " +
                             str(response.status_code))
 
-    def atestado(self, **kwargs):
-        """Retorna um dicionário com as matérias do usuário em blocos de 50 minutos."""
+    def atestado(self, **kwargs) -> dict:
+        """Retorna as matérias do usuário em blocos de 50 minutos.
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+        """
 
         url = kwargs.get('url',
                          f"https://zeppelin10.ufop.br/api/v1/graduacao/alunos/atestado")
@@ -124,15 +151,16 @@ class MinhaUFOP:
             raise Exception("Servidor retornou o código: " +
                             str(response.status_code))
 
-    def foto(self, cpf: str, caminho_de_saida = None, **kwargs):
-        """Salva a foto do CPF informado se disponível.
+    def foto(self, cpf: str, **kwargs) -> bytes:
+        """Retorna a foto do CPF informado, se disponível.
 
-        Parameters:
+        Args:
             cpf (str):CPF que você deseja requisitar a foto (ex.:
             123.456.789-10)
-            caminho_de_saida (str):Caminho para salvar a foto.
-             Padrão é {cpf}.png
-             **kwargs
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
         """
 
         url = kwargs.get('url', f"https://zeppelin10.ufop.br/api/v1/ru/foto/{cpf}")
