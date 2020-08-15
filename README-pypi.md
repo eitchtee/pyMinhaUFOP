@@ -28,6 +28,14 @@ $ pip install pyminhaufop --upgrade
 
 ## Uso e Exemplos
 
+### Documentação
+Você pode acessar a documentação adicional por meio do parâmetro ``__doc__``.
+
+```python
+>> from pyminhaufop import MinhaUFOP
+>> print(MinhaUFOP.cardapio_do_ru.__doc__)
+```
+
 ### Login e Inicialização
 #### Simples
 ```python
@@ -118,13 +126,12 @@ print(extrato)
 
 ### Salvar foto de um CPF
 ```python
-# Salva a foto do CPF como teste.png
-api.foto('123.456.789-10', 'teste.png')
-
-# Salva a foto e etorna o caminho onde foi salva
+# Retorna a foto em bytes
 foto = api.foto('123.456.789-10')
-print(foto)
-# 123.456.789-10.png
+
+# Salva a foto em um arquivo .png
+with open('ex.png', 'wb') as file:
+    file.write(foto)
 ```
 
 ### Atestado de Matrícula

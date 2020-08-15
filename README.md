@@ -52,6 +52,14 @@ $ pip install pyminhaufop --upgrade
 
 ## Uso e Exemplos
 
+### Documentação
+Você pode acessar a documentação adicional por meio do parâmetro ``__doc__``
+
+```python
+>> from pyminhaufop import MinhaUFOP
+>> print(MinhaUFOP.cardapio_do_ru.__doc__)
+```
+
 ### Login e Inicialização
 #### Simples
 ```python
