@@ -140,13 +140,8 @@ class MinhaUFOP:
 
         response = requests.request("GET", url, headers=headers)
 
-        saida = cpf + ".png" if not caminho_de_saida else caminho_de_saida
-
         if response.ok and response.content:
-            with open(saida, 'wb') as file:
-                file.write(response.content)
-
-            return saida
+            return response.content
         elif not response.content:
             raise Exception("Servidor não retornou nada. "
                             "Verifique o CPF do pedido.")
