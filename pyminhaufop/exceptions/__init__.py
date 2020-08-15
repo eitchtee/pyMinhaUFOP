@@ -1,0 +1,2 @@
+from .MinhaUFOPHTTPError import MinhaUFOPHTTPError
+from .MinhaUFOPGenericError import MinhaUFOPGenericError

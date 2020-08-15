@@ -1,6 +1,8 @@
 import hashlib
 import requests
 
+from .exceptions import MinhaUFOPHTTPError, MinhaUFOPGenericError
+
 
 class MinhaUFOP:
     def __init__(self):
@@ -23,6 +25,9 @@ class MinhaUFOP:
         Kwargs:
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
         """
 
         if encode:
@@ -48,13 +53,11 @@ class MinhaUFOP:
                 return res_json
             elif res_json.get("perfil") and perfil_num:
                 res = self.login(usuario, senha, encode=encode, identificacao=res_json['perfil'][perfil_num]['identificacao'], perfil=res_json['perfil'][perfil_num]['perfil'])
-                return res_json
+                return res
             elif res_json.get("perfil") and not perfil_num:
                 return res_json
         else:
-            raise Exception("Servidor retornou o código: " +
-                            str(response.status_code) +
-                            ". Verifique suas informações de login.")
+            raise MinhaUFOPHTTPError(response)
 
     def saldo_do_ru(self, **kwargs) -> dict:
         """Retorna o CPF do usuário, o saldo do Cartão do RU e se o cartão está
@@ -63,6 +66,9 @@ class MinhaUFOP:
         Kwargs:
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
         """
 
         url = kwargs.get('url', "https://zeppelin10.ufop.br/api/v1/ru/saldo")
@@ -73,8 +79,7 @@ class MinhaUFOP:
         if response.ok:
             return response.json()
         else:
-            raise Exception("Servidor retornou o código: " +
-                            str(response.status_code))
+            raise MinhaUFOPHTTPError(response)
 
     def cardapio_do_ru(self, **kwargs) -> dict:
         """Retorna o cardapio do RU para a semana
@@ -84,6 +89,9 @@ class MinhaUFOP:
             informado. 0 a 4, onde 0 é segunda e 4 é sexta.
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
         """
 
         dia = kwargs.get('dia_da_semana')
@@ -99,8 +107,7 @@ class MinhaUFOP:
             else:
                 return response.json()
         else:
-            raise Exception("Servidor retornou o código: " +
-                            str(response.status_code))
+            raise MinhaUFOPHTTPError(response)
 
     def extrato_ru(self, inicio, fim, **kwargs) -> dict:
         """Retorna o extrato da carteira do RU.
@@ -112,6 +119,9 @@ class MinhaUFOP:
         Kwargs:
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
         """
 
         url = kwargs.get('url',
@@ -126,8 +136,7 @@ class MinhaUFOP:
         if response.ok:
             return response.json()
         else:
-            raise Exception("Servidor retornou o código: " +
-                            str(response.status_code))
+            raise MinhaUFOPHTTPError(response)
 
     def atestado(self, **kwargs) -> dict:
         """Retorna as matérias do usuário em blocos de 50 minutos.
@@ -135,6 +144,9 @@ class MinhaUFOP:
         Kwargs:
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
         """
 
         url = kwargs.get('url',
@@ -148,8 +160,7 @@ class MinhaUFOP:
         if response.ok:
             return response.json()
         else:
-            raise Exception("Servidor retornou o código: " +
-                            str(response.status_code))
+            raise MinhaUFOPHTTPError(response)
 
     def foto(self, cpf: str, **kwargs) -> bytes:
         """Retorna a foto do CPF informado, se disponível.
@@ -161,6 +172,10 @@ class MinhaUFOP:
         Kwargs:
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
+            MinhaUFOPGenericError: O servidor não retornou uma imagem. Verifique o CPF informado.
         """
 
         url = kwargs.get('url', f"https://zeppelin10.ufop.br/api/v1/ru/foto/{cpf}")
@@ -171,8 +186,8 @@ class MinhaUFOP:
         if response.ok and response.content:
             return response.content
         elif not response.content:
-            raise Exception("Servidor não retornou nada. "
-                            "Verifique o CPF do pedido.")
+            raise MinhaUFOPGenericError(response, 'O servidor não retornou '
+                                                  'uma imagem. '
+                                                  'Verifique o CPF informado.')
         elif not response.ok:
-            raise Exception("Servidor retornou o código: " +
-                            str(response.status_code))
+            raise MinhaUFOPHTTPError(response)
