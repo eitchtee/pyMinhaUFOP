@@ -191,3 +191,24 @@ class MinhaUFOP:
                                                   'Verifique o CPF informado.')
         elif not response.ok:
             raise MinhaUFOPHTTPError(response)
+
+    def listar_boletos(self, **kwargs) -> list:
+        """Retorna uma lista de boletos emitidos pelo usuário
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
+        """
+
+        url = kwargs.get('url', "https://zeppelin10.ufop.br/api/v1/ru/boleto/")
+        headers = kwargs.get('headers', {'Authorization': f'Bearer {self.token}'})
+
+        response = requests.request("GET", url, headers=headers)
+
+        if response.ok:
+            return response.json()
+        else:
+            raise MinhaUFOPHTTPError(response)
