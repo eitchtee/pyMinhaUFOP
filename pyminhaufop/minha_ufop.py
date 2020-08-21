@@ -7,6 +7,7 @@ from .exceptions import MinhaUFOPHTTPError, MinhaUFOPGenericError
 class MinhaUFOP:
     def __init__(self):
         self.token = None
+        self.cpf = None
 
     def login(self,
               usuario: str,
@@ -29,6 +30,7 @@ class MinhaUFOP:
         Raises:
             MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
         """
+        self.cpf = usuario
 
         if encode:
             senha = hashlib.md5(senha.encode()).hexdigest()
@@ -207,6 +209,39 @@ class MinhaUFOP:
         headers = kwargs.get('headers', {'Authorization': f'Bearer {self.token}'})
 
         response = requests.request("GET", url, headers=headers)
+
+        if response.ok:
+            return response.json()
+        else:
+            raise MinhaUFOPHTTPError(response)
+
+    def gerar_boleto(self, valor: float, matricula: str, perfil: str = "G", **kwargs) -> dict:
+        """Gera um novo boleto se não há boletos pendentes, do contrário levanta um erro.
+
+        Args:
+            valor (float): Valor do boleto a ser gerado. Entre 3.0 e 300.0
+            matricula (str): Matrícula do usuário (20.1.1111)
+            perfil (str): Tipo de perfil do usuário. O padrão é G para Graduação.
+
+        Kwargs:
+            cpf (str): CPF do usuário logado (123.456.789-10). O padrão é o CPF utilizado na função login().
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+
+        Returns:
+            Um dict com informações do boleto gerado.
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código HTTP}
+        """
+
+        url = kwargs.get('url', "https://zeppelin10.ufop.br/api/v1/ru/boleto/")
+        headers = kwargs.get('headers', {'Authorization': f'Bearer {self.token}', 'Content-Type': 'application/json'})
+        cpf = kwargs.get('cpf', self.cpf)
+        valor = "{:.2f}".format(valor)
+
+        payload = f'{{"idUsuario":"{cpf}","identificacao":"{matricula}","perfil":"{perfil}","valor":"{valor}"}}'
+        response = requests.request("POST", url, headers=headers, data=payload)
 
         if response.ok:
             return response.json()
