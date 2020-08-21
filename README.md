@@ -156,6 +156,22 @@ print(api.atestado())
 print(api.listar_boletos())
 ```
 
+#### Gerar
+````python
+from pyminhaufop import MinhaUFOP
+from pyminhaufop.exceptions import MinhaUFOPHTTPError
+
+api = MinhaUFOP()
+
+a = api.login("123.456.789-10", "hunter2")
+
+try:
+    api.gerar_boleto(valor=12.0, matricula="20.1.1234", perfil="G")
+except MinhaUFOPHTTPError as err:
+    if err.status_code == 500:
+        print("Já existe um boleto com pagamento pendente.")
+````
+
 ## Roadmap
 
 ### Funções nativas
@@ -165,8 +181,8 @@ print(api.listar_boletos())
 - [x] Consulta de foto pelo CPF `v0.0.2`
 - [x] Consulta ao Cardápio do RU `v0.1.0`
 - [ ] Boletos
-    - [ ] Emissão
+    - [x] Emissão `v.0.3.0`
     - [ ] Download
-    - [x] Listagem 'v.'
+    - [x] Listagem `v.0.3.0`
 - [x] Consulta ao Atestado de Matrícula `v0.2.0`
 - [x] Consulta ao Extrato do RU `v0.2.0`

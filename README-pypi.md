@@ -131,3 +131,19 @@ print(api.atestado())
 ```python
 print(api.listar_boletos())
 ```
+
+#### Gerar
+````python
+from pyminhaufop import MinhaUFOP
+from pyminhaufop.exceptions import MinhaUFOPHTTPError
+
+api = MinhaUFOP()
+
+a = api.login("123.456.789-10", "hunter2")
+
+try:
+    boleto = api.gerar_boleto(valor=12.0, matricula="20.1.1234", perfil="G")
+except MinhaUFOPHTTPError as err:
+    if err.status_code == 500:
+        print("Já existe um boleto com pagamento pendente.")
+````
