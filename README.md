@@ -107,6 +107,12 @@ Indique o index do perfil. O mais recente é o index 0.
 api.login('123.456.789-10', 'sua_senha', perfil_num=0)
 ```
 
+#### Atualizando o token
+Se o seu token estiver expirado você pode atualizá-lo sem precisar de repetir o processo de login.
+````python
+api.atualizar_token()
+````
+
 ### RU
 #### Saldo
 ```python
