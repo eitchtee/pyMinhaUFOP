@@ -61,6 +61,30 @@ class MinhaUFOP:
         else:
             raise MinhaUFOPHTTPError(response)
 
+    def atualizar_token(self, **kwargs):
+        """Atualiza o token atual
+
+        Kwargs:
+            url (str): URL para fazer a requisição ao servidor
+            headers (dict): Headers da requisição ao servidor
+            payload (str): Dados a serem enviados junto com o pedido
+
+        Raises:
+            MinhaUFOPHTTPError: O servidor retornou o código {código
+            HTTP}
+        """
+        url = kwargs.get('url', "https://zeppelin10.ufop.br/minhaUfop/v1/auth/refresh-token")
+        headers = kwargs.get('headers',
+                             {'Authorization': f'Bearer {self.token}'})
+        payload = kwargs.get('payload', '{"normalizedNames":{},"lazyUpdate":[{"name":"Content-Type","value":"application/json","op":"s"},{"name":"Authorization","value":"Bearer %s","op":"s"}],"headers":{},"lazyInit":{"normalizedNames":{},"lazyUpdate":null,"headers":{}}}') % self.token
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+
+        if response.ok:
+            self.token = response.json()['token']
+        else:
+            raise MinhaUFOPHTTPError(response)
+
     def saldo_do_ru(self, **kwargs) -> dict:
         """Retorna o CPF do usuário, o saldo do Cartão do RU e se o cartão está
            bloqueado
