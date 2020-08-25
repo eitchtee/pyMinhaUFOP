@@ -61,13 +61,16 @@ class MinhaUFOP:
         else:
             raise MinhaUFOPHTTPError(response)
 
-    def atualizar_token(self, **kwargs):
-        """Atualiza o token atual
+    def atualizar_token(self, **kwargs) -> dict:
+        """Atualiza o token atual in-place
 
         Kwargs:
             url (str): URL para fazer a requisição ao servidor
             headers (dict): Headers da requisição ao servidor
             payload (str): Dados a serem enviados junto com o pedido
+
+        Returns:
+            JSON da Resposta (dict)
 
         Raises:
             MinhaUFOPHTTPError: O servidor retornou o código {código
@@ -82,6 +85,7 @@ class MinhaUFOP:
 
         if response.ok:
             self.token = response.json()['token']
+            return response.json()
         else:
             raise MinhaUFOPHTTPError(response)
 
