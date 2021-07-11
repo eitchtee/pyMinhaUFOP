@@ -6,7 +6,7 @@ with open("README-pypi.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="pyminhaufop",
-    packages=['pyminhaufop'],
+    packages=['pyminhaufop', 'pyminhaufop.exceptions'],
     version=os.environ.get('VERSION', '0.0.0'),
     license='MIT',
     author="Herculino Trotta Neto",
@@ -14,7 +14,7 @@ setuptools.setup(
     description="Wrapper não-oficial para a API mobile da MinhaUFOP",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    keywords=['UFOP', 'api'],
+    keywords=['UFOP', 'api', 'wrapper'],
     url="https://github.com/eitchtee/pyMinhaUFOP",
     install_requires=[
           'requests',
